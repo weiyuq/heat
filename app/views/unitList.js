@@ -87,7 +87,7 @@ class ACListTab extends Component {
     }
     _renderItem = ({item, separators}) => (
         <TouchableHighlight
-            onPress={() => CommonConst.navigation.navigate("UnitDetail", {id: item._id })}
+            onPress={() => CommonConst.navigation.navigate("UnitDetail", {id: item._id, name: item.name })}
             style={{margin: 10}}
             >
             <View style={styles.unitItem}>
