@@ -3,6 +3,7 @@ import {Alert} from "react-native";
 import { stringify } from 'qs';
 import CommonConst from '../constant/CommonConst';
 import { refresh } from '../service';
+import storage from "./Storage";
 
 // import {createAction} from './index'
 
@@ -49,6 +50,11 @@ export async function refreshToken() {
         refreshing = refresh()
             .then(data => {
                 if (!data.access_token) {
+                    CommonConst.access_token = '';
+                    CommonConst.navigation.navigate('Login');
+                    storage.remove({
+                        key: 'token',  // 注意:请不要在key中使用_下划线符号!
+                    });
                     return Promise.reject(data);
                 }
                 return data;

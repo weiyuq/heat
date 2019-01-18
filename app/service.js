@@ -40,12 +40,6 @@ export async function login(params) {
                 },
 
             });
-        } else {
-            CommonConst.access_token = '';
-            CommonConst.navigation.navigate('Login');
-            storage.remove({
-                key: 'token',  // 注意:请不要在key中使用_下划线符号!
-            });
         }
         return data;
     });
