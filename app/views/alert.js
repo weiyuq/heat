@@ -24,6 +24,7 @@ export default class AlertView extends React.Component {
         return (
             <View style={loginStyle.all}>
                 <Header title='告警' />
+                <Text >正在开发中...</Text>
             </View>
         );
     }

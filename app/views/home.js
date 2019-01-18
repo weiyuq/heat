@@ -24,6 +24,7 @@ export default class HomeView extends React.Component {
         return (
             <View style={loginStyle.all}>
                 <Header title='首页' />
+                <Text>正在开发中...</Text>
             </View>
         );
     }
