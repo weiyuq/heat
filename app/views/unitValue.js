@@ -57,7 +57,7 @@ export default class UnitVale extends React.Component {
                             return (
                                 <View style={styles.valueItem}>
                                     <Text style={styles.valueText}>{item.desc}</Text>
-                                    <Text style={styles.valueText}>{item.value || '-'} {item.unit}</Text>
+                                    <Text style={styles.valueText}>{item.value !==undefined? item.value : '-'} {item.unit}</Text>
                                 </View>
                             )
                         }
