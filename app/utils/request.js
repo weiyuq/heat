@@ -45,7 +45,6 @@ export function isAuthError({ error, error_code: code }) {
 }
 let refreshing;
 export async function refreshToken() {
-    console.log('refreshToken')
     if (refreshing === undefined) {
         refreshing = refresh()
             .then(data => {
@@ -53,11 +52,6 @@ export async function refreshToken() {
                     return Promise.reject(data);
                 }
                 return data;
-            })
-            .catch(() => {
-                return redirectToLogin().then(() => {
-                    return Promise.reject(new Error('login required'));
-                });
             })
             .finally(() => {
                 refreshing = undefined;
