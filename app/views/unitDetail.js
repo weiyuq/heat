@@ -146,7 +146,7 @@ export default class LoginView extends React.Component {
         const { dashboard, alarmState, machineParamState, machineState, timestamp } = this.state;
         return (
             <View style={{flex: 1}}>
-                <Header title='告警' back={this.back} />
+                <Header title='实时数据' back={this.back} />
                 <View style={styles.unitItem}>
                     <Text>更新时间： {timestamp && moment(timestamp).format('YYYY/MM/DD hh:mm:ss')}</Text>
                 </View>

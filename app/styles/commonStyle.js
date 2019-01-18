@@ -26,8 +26,9 @@ let commonStyle = StyleSheet.create({
         flex: 1,  // 类似于android中的layout_weight,设置为1即自动拉伸填充
         alignItems: 'center',
         marginTop: px2dp(4),
-        marginLeft: px2dp(20),
-        marginRight: px2dp(20)
+        // marginLeft: px2dp(10),
+        marginRight: px2dp(26),
+        // backgroundColor: 'white',
     },
     title: {
         fontSize: px2dp(20),

@@ -50,13 +50,6 @@ export default class UnitVale extends React.Component {
                                     <Text style={styles.valueText}>{item.value ? data[1].slice(0,data[1].length-1) : data[0].slice(0,data[0].length-1)}</Text>
                                 </View>
                             )
-                        } else if(title === '机组参数设定' ) {
-                            return (
-                                <View style={styles.valueItem}>
-                                    <Text style={styles.valueText}>{item.desc}</Text>
-                                    <EditText data={item}/>
-                                </View>
-                            )
                         } else {
                             return (
                                 <View style={styles.valueItem}>

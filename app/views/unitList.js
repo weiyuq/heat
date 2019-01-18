@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Alert, FlatList, Image, TouchableHighlight, View, Text} from 'react-native';
-import {Tab, Tabs,} from "native-base";
+import { Tab, Tabs } from "native-base";
 import styles from "../styles/unitListStyle";
 import Header from '../components/Header';
 import { getUnits } from '../service';
@@ -11,45 +11,24 @@ import CommonConst from '../constant/CommonConst';
 export default class UnitList extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
-    }
-    render() {
-        return (
-            <View style={{ flex:1 }}>
-                <Header title='机组' />
-                <Tabs style={{backgroundColor: 'white'}}>
-                    <Tab heading="全部">
-                        <ACListTab tab="all" />
-                    </Tab>
-                    <Tab heading="在线">
-                        <ACListTab tab="online"/>
-                    </Tab>
-                    <Tab heading="离线">
-                        <ACListTab tab="offline"/>
-                    </Tab>
-                </Tabs>
-
-            </View>
-        );
-    }
-}
-
-class ACListTab extends Component {
-    constructor(props) {
-        super(props);
         this.state = {
+            change: false,
             unitList: [],
         };
     }
     componentWillMount() {
-        const { tab } = this.props;
-        if( tab === 'all' ){
+        this.getUnitList();
+    }
+    onChangeTab = (data) => {
+        const tab = data.i;
+        if( tab === 0 ){
             this.getUnitList();
-        } else if(tab === 'online'){
+        } else if(tab === 1){
             this.getUnitList(1);
         } else {
             this.getUnitList(0);
         }
+
     }
     getUnitList = online => {
         const param = {
@@ -57,14 +36,13 @@ class ACListTab extends Component {
             "type": "exchanger", // 机型类型
             "recursive": true ,
             "cursor": 0, // 默认等于0
-            "limit": 10, // 默认等于10
+            "limit": 0, // 默认等于10
             // "online": 0 // 0表示离线 1表示在线 查全部传空值或者不传此字段
         };
         if(online !== undefined){
             param.online = online;
         }
         getUnits(param).then(data => {
-            // console.log(data)
             if(data){
                 if(data.result){
                     this.setState({unitList: data.result })
@@ -76,6 +54,36 @@ class ACListTab extends Component {
                 }
             }
         })
+    }
+    render() {
+        const { unitList } = this.state;
+        return (
+            <View style={{ flex:1 }}>
+                <Header title='机组' />
+                <Tabs
+                    style={{backgroundColor: 'white'}}
+                    onChangeTab={this.onChangeTab}
+                >
+                    <Tab heading="全部">
+                        <ACListTab tab="all" data={unitList}/>
+                    </Tab>
+                    <Tab heading="在线">
+                        <ACListTab tab="online" data={unitList}/>
+                    </Tab>
+                    <Tab heading="离线">
+                        <ACListTab tab="offline" data={unitList}/>
+                    </Tab>
+                </Tabs>
+
+            </View>
+        );
+    }
+}
+
+class ACListTab extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
     }
     _renderItem = ({item, separators}) => (
         <TouchableHighlight
@@ -94,11 +102,11 @@ class ACListTab extends Component {
     _keyExtractor = (item, index) => item._id;
 
     render() {
-        const { unitList } = this.state;
+        const { data } = this.props;
         return (
             <FlatList
                 style={{backgroundColor: 'white'}}
-                data={unitList}
+                data={data}
                 keyExtractor={this._keyExtractor}
                 renderItem={this._renderItem}
             />
