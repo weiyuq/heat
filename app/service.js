@@ -58,7 +58,5 @@ export async function getUnits(params) {
     return request(`/api/iot/modules?${stringify(params)}`);
 }
 export async function getTimeUnit(id) {
-    // console.log('getTimeUnit')
-    // console.log(id)
     return request(`/api/iot/modules/${id}/sense`);
 }
