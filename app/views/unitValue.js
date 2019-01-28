@@ -15,6 +15,9 @@ import styles from "../styles/unitDetailStyle";
 import editImg from "../images/edit.png";
 import okImg from "../images/queren.png";
 
+function isFloat(value) {
+    return ~~value !== value;
+}
 export default class UnitVale extends React.Component {
     constructor(props) {
         super(props);
@@ -29,6 +32,17 @@ export default class UnitVale extends React.Component {
     }
     back = () => {
         this.props.navigation.goBack();
+    }
+    fixValue = data => {
+        if(data === undefined){
+            return '-';
+        } else {
+            if(isFloat(data)){
+                return data.toFixed(2);
+            } else {
+                return data;
+            }
+        }
     }
     _keyExtractor = (item, index) => item.position;
     render() {
@@ -57,7 +71,7 @@ export default class UnitVale extends React.Component {
                             return (
                                 <View style={styles.valueItem}>
                                     <Text style={styles.valueText}>{item.desc}</Text>
-                                    <Text style={styles.valueText}>{item.value !==undefined? item.value : '-'} {item.unit}</Text>
+                                    <Text style={styles.valueText}>{this.fixValue(item.value)} {item.unit}</Text>
                                 </View>
                             )
                         }
